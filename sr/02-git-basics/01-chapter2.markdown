@@ -1,65 +1,65 @@
-# Git Basics #
+# Git основе #
 
-If you can read only one chapter to get going with Git, this is it. This chapter covers every basic command you need to do the vast majority of the things you’ll eventually spend your time doing with Git. By the end of the chapter, you should be able to configure and initialize a repository, begin and stop tracking files, and stage and commit changes. We’ll also show you how to set up Git to ignore certain files and file patterns, how to undo mistakes quickly and easily, how to browse the history of your project and view changes between commits, and how to push and pull from remote repositories.
+Ако сте у могућности да прочитате само једно поглавље, онда је то ово. Ово поглавље покрива сваку основну команду која вам је потребна да урадите огрмону већину ствари које ћете углавном радити користећи Git. До краја поглавља, требало би да сте у могућност да подесите и иницијализирате репозиториј, почнете и прекинете да пратите фајлове, да их додате у stage и комитујете промене. Показаћемо вам како да подесите Git да игнорише сродне фајлове и фолдере, како да брзо исправите погрешне кораке, како да прегледате историју пројекта и видите промене између комита, и како да пошаљете (push) и повучете (pull) са удаљених репозиторија.
 
-## Getting a Git Repository ##
+## Добављање Git репозиторија ##
 
-You can get a Git project using two main approaches. The first takes an existing project or directory and imports it into Git. The second clones an existing Git repository from another server.
+Git пројекат се може добавити на два основна начина. Први јесте користећи и увозећи постојећи пројекат или директоријум. Други је клонирајући постојећи Git репозиторијум са другог сервера.
 
-### Initializing a Repository in an Existing Directory ###
+### Иницијализација репозиторијума у постојећем директоријуму ###
 
-If you’re starting to track an existing project in Git, you need to go to the project’s directory and type
+Ако почињете да пратите постојећи пројекат у Git-у, потребно је да у основном директоријуму пројекат откуцате 
 
 	$ git init
 
-This creates a new subdirectory named .git that contains all of your necessary repository files — a Git repository skeleton. At this point, nothing in your project is tracked yet. (See Chapter 9 for more information about exactly what files are contained in the `.git` directory you just created.)
+Ово креира нови поддиректоријум имена .git који садржи све неопходне фајлове репозиторијума — скелетон Git репозиторијума. Тренутно, ништа од фајлова пројекта није праћено. (Видите Поглавље 9 за више информација о томе шта се све налази у .git директоријуму који сте управо креирали.)
 
-If you want to start version-controlling existing files (as opposed to an empty directory), you should probably begin tracking those files and do an initial commit. You can accomplish that with a few git add commands that specify the files you want to track, followed by a commit:
+Ако желите да контролишете верзије постојећих фајлова (за разлику од празног директоријума), требало би да почнете да пратите те фајлове и урадите иницијални комит. Ово се може урадити са пар git add команди које одређују које фајлове желите да пратите, за којима следи комит:
 
 	$ git add *.c
 	$ git add README
 	$ git commit –m 'initial project version'
 
-We’ll go over what these commands do in just a minute. At this point, you have a Git repository with tracked files and an initial commit.
+Убрзо ћемо се вратити на објашњење шта ове све команде раде. Тренутно, имате Git репозиторијум са праћеним фајловима и иницијалним комитом.
 
-### Cloning an Existing Repository ###
+### Клонирање постојећег репозиторијума ###
 
-If you want to get a copy of an existing Git repository — for example, a project you’d like to contribute to — the command you need is git clone. If you’re familiar with other VCS systems such as Subversion, you’ll notice that the command is clone and not checkout. This is an important distinction — Git receives a copy of nearly all data that the server has. Every version of every file for the history of the project is pulled down when you run `git clone`. In fact, if your server disk gets corrupted, you can use any of the clones on any client to set the server back to the state it was in when it was cloned (you may lose some server-side hooks and such, but all the versioned data would be there—see Chapter 4 for more details).
+Ако желите да добавите постојећи Git репозиторијум — на пример, пројекат коме бисте желели да допринесете — команда коју требате је git clone. Ако сте упознати са другим системима за праћење верзија попут Subversion, приметићете да је овде у питању clone, а не checkout. Ово је битна разлика — Git добија копију скоро свих података које сервер поседује. Свака верзија сваког фајла од постојања пројекта се довлачи (pull) када покренете git clone. У ствари, ако се диск сервера поквари, можете искористити било који клон на било ком клијенту да рестаурирате сервер у стање у којем је био када је клониран (можете изгубити неке hooks на страни сервера и слично, али сви верзионисани подаци ће бити ту — погледате Поглавље 4 ради више детаља).
 
-You clone a repository with `git clone [url]`. For example, if you want to clone the Ruby Git library called Grit, you can do so like this:
+Клонирате репозторијум помоћу git clone [url]. На пример, ако желите да клонирате Ruby Git библиотеку звану Grit, урадите то овако:
 
 	$ git clone git://github.com/schacon/grit.git
 
-That creates a directory named "grit", initializes a `.git` directory inside it, pulls down all the data for that repository, and checks out a working copy of the latest version. If you go into the new `grit` directory, you’ll see the project files in there, ready to be worked on or used. If you want to clone the repository into a directory named something other than grit, you can specify that as the next command-line option:
+Ово креира директоријум имена "grit", иницијализира `.git` директоријум унутар њега, свлачи све податке о том репозиторијуму и намешта радну копију на последљу верзију. Ако "уђете" у нови "grit" директоријум, видећете фајлове пројекта унутра, спремне да се на њима ради. Ако желите да клонирате репозиторијум у неки други, а не имена "grit" то можете одредити додајући опцију на командну линију:
 
 	$ git clone git://github.com/schacon/grit.git mygrit
 
-That command does the same thing as the previous one, but the target directory is called mygrit.
+Ова команда ради исто што и претходна, али је циљни директоријум сада имена "mygrit".
 
-Git has a number of different transfer protocols you can use. The previous example uses the `git://` protocol, but you may also see `http(s)://` or `user@server:/path.git`, which uses the SSH transfer protocol. Chapter 4 will introduce all of the available options the server can set up to access your Git repository and the pros and cons of each.
+Git подржава бројне протоколе које можете користити. Претходни пример користи git:// протокол, али такође се може користити http(s):// или user@server:/path.git, који користи SSH шифровани преносни протокол. Поглавље 4 ће увести све могуће опције помоћу којих сервер може да омогући приступ вашем Git репозиторијуму као и разлоге за и против сваке од њих.
 
-## Recording Changes to the Repository ##
+## Чување промена у репозиторијуму ##
 
-You have a bona fide Git repository and a checkout or working copy of the files for that project. You need to make some changes and commit snapshots of those changes into your repository each time the project reaches a state you want to record.
+Имате bona fide Git репозиторијум и радну копију фајлова тог пројекта. Потребно је да направите неке промене и комитујете стање тих промена у репозиторијум сваки пут када пројекат дође у стање које желите да сачувате.
 
-Remember that each file in your working directory can be in one of two states: tracked or untracked. Tracked files are files that were in the last snapshot; they can be unmodified, modified, or staged. Untracked files are everything else - any files in your working directory that were not in your last snapshot and are not in your staging area.  When you first clone a repository, all of your files will be tracked and unmodified because you just checked them out and haven’t edited anything. 
+Присетите се да сваки фајл у радном директоријуму може бити у два стања: праћен и непраћен. Праћени фајлови су фајлови који су били у последњем стању; они могу бити неизмењени, измењени или спремни (staged). Непраћени фајлови су све остало — било који фајл у радној копији који нису били у последњем сачуваном стању и који нису у спремном делу (staged area). Када сте први пут клонирали репозиторијум, сви фајлови ће бити праћени и неизмењени јер сте их управо спремили и нисте ниједан мењали.
 
-As you edit files, Git sees them as modified, because you’ve changed them since your last commit. You stage these modified files and then commit all your staged changes, and the cycle repeats. This lifecycle is illustrated in Figure 2-1.
+Како мењате фајлове, Git их види као измењене, јер сте их мењали од последњег комита. Спремате ове измењене фајлове и онда их све (спремне) комитујете, и тако се круг понавља. Овај циклус је приказан на  Figure 2-1.
 
 Insert 18333fig0201.png 
-Figure 2-1. The lifecycle of the status of your files.
+Figure 2-1. Циклус статуса ваших фајлове.
 
-### Checking the Status of Your Files ###
+### Провера статуса ваших фајлова ###
 
-The main tool you use to determine which files are in which state is the git status command. If you run this command directly after a clone, you should see something like this:
+Главни алат који користите да одредите који статус фајлова јесте git status команда. Ако покренете ову команду директно након клонирања, требало би да видите нешто слично овоме:
 
 	$ git status
 	# On branch master
 	nothing to commit (working directory clean)
 
-This means you have a clean working directory—in other words, there are no tracked and modified files. Git also doesn’t see any untracked files, or they would be listed here. Finally, the command tells you which branch you’re on. For now, that is always master, which is the default; you won’t worry about it here. The next chapter will go over branches and references in detail.
+Ово значи да имате чисту радну копију или, другим речима, не постоје непраћени и измењени фајлови. Git не види никакве непраћене фајлове, јер би они просто били излистани овде. Коначно, ова команда вам говори на којој сте грани (branch). За сада, то је увек master, које је основна; нећемо бринути о томе тренутно. Следеће поглавље ће говорити детаљније о гранама и референцама.
 
-Let’s say you add a new file to your project, a simple README file. If the file didn’t exist before, and you run `git status`, you see your untracked file like so:
+Рецимо да додате нови фајл свом пројекту, рецимо једностани README фајл. Ако фајл није постојао пре, и покренете git status, видећете свој непраћени фајл:
 
 	$ vim README
 	$ git status
@@ -70,15 +70,15 @@ Let’s say you add a new file to your project, a simple README file. If the fil
 	#	README
 	nothing added to commit but untracked files present (use "git add" to track)
 
-You can see that your new README file is untracked, because it’s under the “Untracked files” heading in your status output. Untracked basically means that Git sees a file you didn’t have in the previous snapshot (commit); Git won’t start including it in your commit snapshots until you explicitly tell it to do so. It does this so you don’t accidentally begin including generated binary files or other files that you did not mean to include. You do want to start including README, so let’s start tracking the file.
+Можете видети да је нови README фајл непраћен, јер је у секцији "Unracked files". Непраћен у основи значи да Git види фајл који није постојао у претходном комиту; Git неће укључити овај фајл у наредни комит, све док му изричито то не кажете. Ово је намерно, како не бисте случајно укључили бинарне или друге фајлове које нисте желели. Обзиром да желите да пратите README рецимо Git да то и уради.
 
-### Tracking New Files ###
+### Праћење нових фајлова ###
 
-In order to begin tracking a new file, you use the command `git add`. To begin tracking the README file, you can run this:
+Да бисте почели пратити нови фајл, можете користит команду `git add`. Да бисте пратили фајл README, покрените ово: 
 
 	$ git add README
 
-If you run your status command again, you can see that your README file is now tracked and staged:
+Ако поново позовете status команду, видећете да је сада README праћен и спреман:
 
 	$ git status
 	# On branch master
@@ -88,11 +88,11 @@ If you run your status command again, you can see that your README file is now t
 	#	new file:   README
 	#
 
-You can tell that it’s staged because it’s under the “Changes to be committed” heading. If you commit at this point, the version of the file at the time you ran git add is what will be in the historical snapshot. You may recall that when you ran git init earlier, you then ran git add (files) — that was to begin tracking files in your directory. The git add command takes a path name for either a file or a directory; if it’s a directory, the command adds all the files in that directory recursively.
+Можете тврдити да је спреман јер је у секцији "Chan ges to be committed". Ако сада урадите комит, верзија фајла у моменту када сте покренули `git add` је оно што ће бити у историји пројекта. Можете се сетити да сте прво покренули `git init`, а затим `git add` — да је то било ради почетка праћења постојећих фајлова. `git add` прихвата путању за фајл или директоријум; ако је путања директоријум, сви фајлови у том директоријуму и сам директоријум ће постати праћени.
 
-### Staging Modified Files ###
+### Спремање измењеног фајла ###
 
-Let’s change a file that was already tracked. If you change a previously tracked file called `benchmarks.rb` and then run your `status` command again, you get something that looks like this:
+Променимо један праћени фајл. Ако промените претходно праћени фајл `benchmarks.rb` а затим покренете status команду, видећете нешто слично овоме: 
 
 	$ git status
 	# On branch master
@@ -107,7 +107,7 @@ Let’s change a file that was already tracked. If you change a previously track
 	#	modified:   benchmarks.rb
 	#
 
-The benchmarks.rb file appears under a section named “Changed but not updated” — which means that a file that is tracked has been modified in the working directory but not yet staged. To stage it, you run the `git add` command (it’s a multipurpose command — you use it to begin tracking new files, to stage files, and to do other things like marking merge-conflicted files as resolved). Let’s run `git add` now to stage the benchmarks.rb file, and then run `git status` again:
+Фајл benchmarks.rb се појављује у секцији "Changed but not updated" — што значи да је овај фајл праћен и измењен у радном директоријуму, али још није спремњен (за комит). Да га спремите, покрените `git add` (ово је вишенаменска команда — користите је да почнете праћење фајлова, да их спремите и друго као да означите фајлове који су имали конфликте након спајања /merge-conflicted/ као исправљене). Покренимо `git add` сада и спремимо фајл benchmarks.rb, а онда покренимо `git status`:
 
 	$ git add benchmarks.rb
 	$ git status
@@ -119,7 +119,7 @@ The benchmarks.rb file appears under a section named “Changed but not updated�
 	#	modified:   benchmarks.rb
 	#
 
-Both files are staged and will go into your next commit. At this point, suppose you remember one little change that you want to make in benchmarks.rb before you commit it. You open it again and make that change, and you’re ready to commit. However, let’s run `git status` one more time:
+Оба фајла су спремна и ићи ће у следећи комит. Претпоставимо сада да сте се управо сетили неке мале промене коју желите да направите у benchmarks.rb пре комита. Отворите фајл, направите промену, сачувате и — спремни сте да комитујете. Ипак, покренимо `git status` још једном:
 
 	$ vim benchmarks.rb 
 	$ git status
@@ -136,7 +136,7 @@ Both files are staged and will go into your next commit. At this point, suppose 
 	#	modified:   benchmarks.rb
 	#
 
-What the heck? Now benchmarks.rb is listed as both staged and unstaged. How is that possible? It turns out that Git stages a file exactly as it is when you run the git add command. If you commit now, the version of benchmarks.rb as it was when you last ran the git add command is how it will go into the commit, not the version of the file as it looks in your working directory when you run git commit. If you modify a file after you run `git add`, you have to run `git add` again to stage the latest version of the file:
+Шта је ово?  Сада benchmarks.rb стоји и као спреман и као неспреман. Како је то могуће? Испоставља се да Git спрема фајлове у моменту када их додате са `git add`. Ако комитујете сада, верзија фајла која ће ићи у комит је управо она када сте га додали, а не верзија са последном изменом коју сте направили након `git add` . Ако промените фајл након `git add`, морате поново покренути исту команду да би та верзија фајла била спремљена.
 
 	$ git add benchmarks.rb
 	$ git status
@@ -148,26 +148,26 @@ What the heck? Now benchmarks.rb is listed as both staged and unstaged. How is t
 	#	modified:   benchmarks.rb
 	#
 
-### Ignoring Files ###
+### Игнорисање фајлова ###
 
-Often, you’ll have a class of files that you don’t want Git to automatically add or even show you as being untracked. These are generally automatically generated files such as log files or files produced by your build system. In such cases, you can create a file listing patterns to match them named .gitignore.  Here is an example .gitignore file:
+Често, постојаће скуп фајлова које не желите да пратите аутоматски или чак не желите да се уопште икада прате. Ово су углавном аутоматски генерисани фајлови попут лог фајлова или фајлова које креира ваш билд систем. У таквих ситуацијама, можете направити фајл који садржи правила имена таквих фајлова и да их упишете у фајл .gitignore. Ево примера таквог једног фајла:
 
 	$ cat .gitignore
 	*.[oa]
 	*~
 
-The first line tells Git to ignore any files ending in .o or .a — object and archive files that may be the product of building your code. The second line tells Git to ignore all files that end with a tilde (`~`), which is used by many text editors such as Emacs to mark temporary files. You may also include a log, tmp, or pid directory; automatically generated documentation; and so on. Setting up a .gitignore file before you get going is generally a good idea so you don’t accidentally commit files that you really don’t want in your Git repository.
+Прва линија говори да Git игнорише сваки фајл чије име се завршава на .0 или .а — објектни фајл и архива које генерише компајлер. Друга линија говори да се игноришу сви фајлови чије име завршава на `~`, које већина текст едитора користи за привремене копије. Овде је могуће укључити логове, привремене фајлове или директоријуме, аутоматски генерисну документацију и слично. Подешавање .gitignore фајла унапред је најчешће ствар добре праксе да не бисте случајно комитовали фајл који не желите у репозиторијуму.
 
-The rules for the patterns you can put in the .gitignore file are as follows:
+Правила за игнорисање која се могу додати у .gitignore фајл:
 
-*	Blank lines or lines starting with # are ignored.
-*	Standard glob patterns work.
-*	You can end patterns with a forward slash (`/`) to specify a directory.
-*	You can negate a pattern by starting it with an exclamation point (`!`).
+*	Празне линије и линије које почиљу са # се игноришу.
+*	Стандардна glob правила важе.
+*	Правила можете завршити са `/` да одредите директоријум.
+*	Правило можете негирати тако што ћете на почетак ставити узвишник `!`.
 
-Glob patterns are like simplified regular expressions that shells use. An asterisk (`*`) matches zero or more characters; `[abc]` matches any character inside the brackets (in this case a, b, or c); a question mark (`?`) matches a single character; and brackets enclosing characters separated by a hyphen(`[0-9]`) matches any character between them (in this case 0 through 9) . 
+Glob правила су као поједностављени регуларни изрази које користи шел. Астериск (`*`) одговара 0 или више карактера; `[abc]` одговара било којем карактеру унутар средњих заграда (у овом случају a, b или c); упитник (`?`) одговара једном карактеру; а карактери са цртицом између унутар средњих заграда (`[0-9]`) одговарају било којем карактеру у том низу (у овом случају од 0 до 9).
 
-Here is another example .gitignore file:
+Ево јоше једног примера .gitignore фајла:
 
 	# a comment – this is ignored
 	*.a       # no .a files
@@ -176,7 +176,8 @@ Here is another example .gitignore file:
 	build/    # ignore all files in the build/ directory
 	doc/*.txt # ignore doc/notes.txt, but not doc/server/arch.txt
 
-### Viewing Your Staged and Unstaged Changes ###
+### Прегледање спремних и неспремних промена ###
+
 
 If the `git status` command is too vague for you — you want to know exactly what you changed, not just which files were changed — you can use the `git diff` command. We’ll cover `git diff` in more detail later; but you’ll probably use it most often to answer these two questions: What have you changed but not yet staged? And what have you staged that you are about to commit? Although `git status` answers those questions very generally, `git diff` shows you the exact lines added and removed — the patch, as it were. 
 
@@ -1116,6 +1117,6 @@ As you can tell, Git simply replaces the new command with whatever you alias it 
 
 	$ git config --global alias.visual "!gitk"
 
-## Summary ##
+## Закључак ##
 
-At this point, you can do all the basic local Git operations — creating or cloning a repository, making changes, staging and committing those changes, and viewing the history of all the changes the repository has been through. Next, we’ll cover Git’s killer feature: its branching model.
+Након овога, способни сте да урадите све основне локалне Git операције — креирање или клонирање репозиторијума, прављење промена, спремање и комитовање тих промена, прегледање историје свих промена у репозиторијуму. У наредном поглављу, покрићемо Git-ове најбољу способност: модел гранања.
