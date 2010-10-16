@@ -1,12 +1,12 @@
-# Getting Started #
+# Ekkomenci #
 
-This chapter will be about getting started with Git.  We will begin at the beginning by explaining some background on version control tools, then move on to how to get Git running on your system and finally how to get it setup to start working with.  At the end of this chapter you should understand why Git is around, why you should use it and you should be all setup to do so.
+Ĉi tiu ĉapitro estos pri komenci pri Git. Ni komencos je la komenco, klarigante iom da fonaj aferoj pri versikontrolaj iloj, poste pluiros pri kiel ruligi Git en via sistemo kaj fine kiel agordi por ekuzi ĝin. Je la fino de ĉi tiu ĉapitro vi komprenu kial Git ekzistas, kial vi uzi ĝin kaj vi estu pretiĝinta por ekuzi.
 
-## About Version Control ##
+## Pri versikontrolo ##
 
-What is version control, and why should you care? Version control is a system that records changes to a file or set of files over time so that you can recall specific versions later. For the examples in this book you will use software source code as the files being version controlled, though in reality you can do this with nearly any type of file on a computer.
+Kio estas versikontrolo, kaj kial vi okupiĝu pri tio? Versikontrolo estas sistemo kiu registras ŝanĝojn pri dosiero aŭ dosieraro dumtempe por ke vi povu revoki specifajn versiojn poste. Por la ekzemploj en ĉi tiu libro vi uzos programaran fontkodon kiel la dosierojn versikontrolataj, sed vere vi povas fari ĉi tion pri ĉiaj dosieroj komputilaj.
 
-If you are a graphic or web designer and want to keep every version of an image or layout (which you would most certainly want to), a Version Control System (VCS) is a very wise thing to use. It allows you to revert files back to a previous state, revert the entire project back to a previous state, compare changes over time, see who last modified something that might be causing a problem, who introduced an issue and when, and more. Using a VCS also generally means that if you screw things up or lose files, you can easily recover. In addition, you get all this for very little overhead.
+Se vi estas grafika aŭ retpaĝa dizajnisto kaj vi volas If you are a graphic or web designer and want to keep every version of an image or layout (which you would most certainly want to), a Version Control System (VCS) is a very wise thing to use. It allows you to revert files back to a previous state, revert the entire project back to a previous state, compare changes over time, see who last modified something that might be causing a problem, who introduced an issue and when, and more. Using a VCS also generally means that if you screw things up or lose files, you can easily recover. In addition, you get all this for very little overhead.
 
 ### Local Version Control Systems ###
 
@@ -73,7 +73,7 @@ This is an important distinction between Git and nearly all other VCSs. It makes
 
 ### Nearly Every Operation Is Local ###
 
-Most operations in Git only need local files and resources to operate — generally no information is needed from another computer on your network.  If you’re used to a CVCS where most operations have that network latency overhead, this aspect of Git will make you think that the gods of speed have blessed Git with unworldly powers. Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous.
+Most operations in Git only need local files and resources to operate – generally no information is needed from another computer on your network.  If you’re used to a CVCS where most operations have that network latency overhead, this aspect of Git will make you think that the gods of speed have blessed Git with unworldly powers. Because you have the entire history of the project right there on your local disk, most operations seem almost instantaneous.
 
 For example, to browse the history of the project, Git doesn’t need to go out to the server to get the history and display it for you—it simply reads it directly from your local database. This means you see the project history almost instantly. If you want to see the changes introduced between the current version of a file and the file a month ago, Git can look up the file a month ago and do a local difference calculation, instead of having to either ask a remote server to do it or pull an older version of the file from the remote server to do it locally.
 
@@ -132,7 +132,7 @@ To install Git, you need to have the following libraries that Git depends on: cu
 	  openssl-devel zlib-devel
 
 	$ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext \
-	  libz-dev libssl-dev
+	  libz-dev
 	
 When you have all the necessary dependencies, you can go ahead and grab the latest snapshot from the Git web site:
 
